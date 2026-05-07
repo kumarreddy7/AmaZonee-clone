@@ -172,10 +172,12 @@ function Navbar() {
                 className="!text-gray-300 hover:!text-white hover:!bg-white/10 transition-all duration-250"
                 sx={{ color: "#D1D5DB" }}
               >
-                {isDark ? (
-                  <LightMode sx={{ fontSize: 20 }} />
-                ) : (
+              {isDark ? (
+                  // In dark mode, show the moon icon.
                   <DarkMode sx={{ fontSize: 20 }} />
+                ) : (
+                  // In light mode, show the sun icon.
+                  <LightMode sx={{ fontSize: 20 }} />
                 )}
               </IconButton>
             </Tooltip>

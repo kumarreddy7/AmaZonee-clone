@@ -2,8 +2,8 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
-  // "class" = dark mode controlled by adding "dark" class to <html>
-  // We toggle this via our ThemeContext
+  // Tailwind dark mode controlled by adding "dark" class to <html>
+  // We toggle this via our ThemeContext.
   darkMode: "class",
 
   theme: {
