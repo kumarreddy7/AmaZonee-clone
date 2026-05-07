@@ -2,13 +2,8 @@
 // Controls light/dark mode for ENTIRE app
 // Saves preference to localStorage — persists on refresh
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
 import { lightTheme, darkTheme } from "../theme";
 
@@ -55,6 +50,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 }
 
 // Custom hook
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) throw new Error("useTheme must be inside ThemeProvider");
