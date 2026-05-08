@@ -1,6 +1,3 @@
-// src/components/layout/Footer.tsx
-// Amazon-style multi-column footer
-
 import { Link } from "react-router-dom";
 
 const FOOTER_LINKS = [
@@ -25,7 +22,6 @@ const FOOTER_LINKS = [
 function Footer() {
   return (
     <footer className="mt-auto">
-      {/* Back to top */}
       <div
         className="bg-az-nav dark:bg-dk-surface text-white text-center py-3 text-sm cursor-pointer hover:bg-opacity-90 transition-colors"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -33,7 +29,6 @@ function Footer() {
         Back to top
       </div>
 
-      {/* Links section */}
       <div className="bg-az-dark dark:bg-dk-bg py-10">
         <div className="max-w-[1600px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -60,12 +55,11 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="bg-az-dark dark:bg-dk-bg border-t border-white/10 py-4">
         <div className="max-w-[1600px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2">
           <span className="text-az-orange font-black text-lg">amazone</span>
           <p className="text-gray-500 text-xs text-center">
-            © 2024 AmaZone. Built with React + Vite + Tailwind + MUI
+            © 2024 AmaZone.
           </p>
           <div className="flex gap-4">
             {["Privacy", "Terms", "Cookies"].map((item) => (

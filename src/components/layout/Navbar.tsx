@@ -1,8 +1,3 @@
-// src/components/layout/Navbar.tsx
-// Amazon-style premium navbar
-// Sections: Top bar + Main bar + Department bar
-// Fully responsive — collapses to mobile on small screens
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -28,8 +23,9 @@ import {
   LocalShipping,
 } from "@mui/icons-material";
 import { useTheme } from "../../context/ThemeContext";
+import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 
-// Navigation categories — department bar
 const DEPARTMENTS = [
   "All Departments",
   "Electronics",
@@ -43,7 +39,6 @@ const DEPARTMENTS = [
   "Automotive",
 ];
 
-// Search categories dropdown
 const SEARCH_CATEGORIES = [
   "All",
   "Electronics",
@@ -62,9 +57,9 @@ function Navbar() {
   const [searchCategory, setSearchCategory] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // anchorEl = which element the dropdown is attached to (MUI Menu)
 
-  const cartCount = 3; // Phase 4: from CartContext
+  const { cartCount } = useCart();
+  const { user, logout } = useAuth();
 
   function handleSearch() {
     if (searchQuery.trim()) {
@@ -74,7 +69,6 @@ function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* ── TOP DELIVERY BAR ── (hidden on mobile) */}
       <div className="hidden md:block bg-az-dark dark:bg-dk-bg border-b border-white/5 py-1">
         <div className="max-w-[1600px] mx-auto px-4 flex justify-end items-center gap-6">
           <span className="text-xs text-gray-400">
@@ -95,10 +89,8 @@ function Navbar() {
         </div>
       </div>
 
-      {/* ── MAIN NAVBAR ── */}
       <nav className="bg-az-dark dark:bg-dk-surface shadow-dark-md">
         <div className="max-w-[1600px] mx-auto px-3 md:px-6 h-[60px] flex items-center gap-2 md:gap-4">
-          {/* Logo */}
           <Link
             to="/"
             className="flex-shrink-0 flex flex-col items-center group"
@@ -111,7 +103,6 @@ function Navbar() {
             </span>
           </Link>
 
-          {/* Deliver To — desktop only */}
           <div className="hidden lg:flex flex-col cursor-pointer hover:outline hover:outline-1 hover:outline-white rounded px-1 py-0.5 transition-all">
             <span className="text-gray-400 text-[10px] leading-tight">
               Deliver to
@@ -122,9 +113,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* ── SEARCH BAR ── */}
           <div className="flex-1 flex h-10 rounded-lg overflow-hidden shadow-glow-orange focus-within:shadow-glow-orange transition-shadow">
-            {/* Category dropdown */}
             <select
               value={searchCategory}
               onChange={(e) => setSearchCategory(e.target.value)}
@@ -137,7 +126,6 @@ function Navbar() {
               ))}
             </select>
 
-            {/* Input */}
             <InputBase
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -153,7 +141,6 @@ function Navbar() {
               }}
             />
 
-            {/* Search button */}
             <button
               onClick={handleSearch}
               className="bg-az-orange hover:bg-az-yellow active:bg-amber-500 w-12 flex items-center justify-center transition-colors duration-200 flex-shrink-0"
@@ -162,9 +149,7 @@ function Navbar() {
             </button>
           </div>
 
-          {/* ── RIGHT ACTIONS ── */}
           <div className="flex items-center gap-0.5 md:gap-1 flex-shrink-0">
-            {/* Theme Toggle */}
             <Tooltip title={isDark ? "Light mode" : "Dark mode"}>
               <IconButton
                 onClick={toggleTheme}
@@ -173,16 +158,13 @@ function Navbar() {
                 sx={{ color: "#D1D5DB" }}
               >
               {isDark ? (
-                  // In dark mode, show the moon icon.
                   <DarkMode sx={{ fontSize: 20 }} />
                 ) : (
-                  // In light mode, show the sun icon.
                   <LightMode sx={{ fontSize: 20 }} />
                 )}
               </IconButton>
             </Tooltip>
 
-            {/* Wishlist */}
             <Tooltip title="Wishlist">
               <IconButton
                 component={Link}
@@ -195,12 +177,13 @@ function Navbar() {
               </IconButton>
             </Tooltip>
 
-            {/* Account */}
             <div
               className="hidden md:flex flex-col cursor-pointer hover:outline hover:outline-1 hover:outline-white rounded px-2 py-1 transition-all"
               onClick={(e) => setAnchorEl(e.currentTarget)}
             >
-              <span className="text-gray-400 text-[10px]">Hello, Sign in</span>
+              <span className="text-gray-400 text-[10px]">
+                {user ? `Hello, ${user.name}` : "Hello, Sign in"}
+              </span>
               <div className="flex items-center gap-0.5">
                 <span className="text-white text-xs font-semibold">
                   Account & Lists
@@ -209,7 +192,6 @@ function Navbar() {
               </div>
             </div>
 
-            {/* Account Dropdown Menu */}
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -227,16 +209,29 @@ function Navbar() {
                 },
               }}
             >
-              <MenuItem
-                onClick={() => {
-                  navigate("/login");
-                  setAnchorEl(null);
-                }}
-                dense
-              >
-                <AccountCircle sx={{ mr: 1, fontSize: 18 }} />
-                Sign In
-              </MenuItem>
+              {user ? (
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    setAnchorEl(null);
+                  }}
+                  dense
+                >
+                  <AccountCircle sx={{ mr: 1, fontSize: 18 }} />
+                  Sign Out
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/login");
+                    setAnchorEl(null);
+                  }}
+                  dense
+                >
+                  <AccountCircle sx={{ mr: 1, fontSize: 18 }} />
+                  Sign In
+                </MenuItem>
+              )}
               <Divider />
               <MenuItem
                 onClick={() => {
@@ -267,13 +262,11 @@ function Navbar() {
               </MenuItem>
             </Menu>
 
-            {/* Orders */}
             <div className="hidden lg:flex flex-col cursor-pointer hover:outline hover:outline-1 hover:outline-white rounded px-2 py-1 transition-all">
               <span className="text-gray-400 text-[10px]">Returns</span>
               <span className="text-white text-xs font-semibold">& Orders</span>
             </div>
 
-            {/* Cart */}
             <Link
               to="/user/cart"
               className="flex items-end gap-1 hover:outline hover:outline-1 hover:outline-white rounded px-2 py-1 transition-all group"
@@ -301,7 +294,6 @@ function Navbar() {
               </span>
             </Link>
 
-            {/* Mobile Menu Toggle */}
             <IconButton
               className="md:hidden !text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -312,7 +304,6 @@ function Navbar() {
           </div>
         </div>
 
-        {/* ── DEPARTMENT BAR ── (desktop) */}
         <div className="hidden md:block bg-az-nav dark:bg-dk-card border-t border-white/5">
           <div className="max-w-[1600px] mx-auto px-6 flex items-center gap-1 overflow-x-auto scrollbar-none h-10">
             {DEPARTMENTS.map((dept) => (
@@ -332,7 +323,6 @@ function Navbar() {
           </div>
         </div>
 
-        {/* ── MOBILE MENU ── */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-az-nav dark:bg-dk-surface border-t border-white/10 py-4 px-4">
             <div className="flex flex-col gap-2">

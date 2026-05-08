@@ -1,10 +1,6 @@
-// src/pages/HomePage.tsx
-// Amazon-style home — Hero + Categories + Deals
-
 import { Link } from "react-router-dom";
 import { ArrowForward, FlashOn, Star } from "@mui/icons-material";
 
-// Category data
 const CATEGORIES = [
   {
     name: "Electronics",
@@ -56,7 +52,6 @@ const CATEGORIES = [
   },
 ];
 
-// Flash deals
 const DEALS = [
   {
     name: "Sony WH-1000XM5",
@@ -91,9 +86,7 @@ const DEALS = [
 function HomePage() {
   return (
     <div className="pb-12">
-      {/* ── HERO SECTION ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-az-dark via-az-nav to-[#1a3a4a] dark:from-dk-bg dark:via-dk-surface dark:to-[#0d1f2d] min-h-[420px] md:min-h-[500px] flex items-center">
-        {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-20 -right-20 w-72 h-72 md:w-96 md:h-96 rounded-full bg-az-orange/10 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-blue-500/10 blur-3xl" />
@@ -101,7 +94,6 @@ function HomePage() {
 
         <div className="relative max-w-[1600px] mx-auto px-6 py-12 md:py-20 w-full">
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            {/* Left — Text */}
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 bg-az-orange/20 border border-az-orange/30 rounded-full px-4 py-1.5">
                 <FlashOn sx={{ fontSize: 16, color: "#FF9900" }} />
@@ -141,7 +133,6 @@ function HomePage() {
                 </Link>
               </div>
 
-              {/* Stats */}
               <div className="flex gap-6 pt-2">
                 {[
                   { value: "50M+", label: "Products" },
@@ -158,9 +149,7 @@ function HomePage() {
               </div>
             </div>
 
-            {/* Right — Visual Cards (not symmetric — intentional) */}
             <div className="hidden md:grid grid-cols-2 gap-3 relative">
-              {/* Offset intentionally — breaks the boring grid */}
               <div className="space-y-3 mt-8">
                 {["📱 Smartphones", "💻 Laptops", "🎧 Audio"].map((item) => (
                   <div
@@ -192,7 +181,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ── CATEGORIES ── */}
       <section className="max-w-[1600px] mx-auto px-4 md:px-6 mt-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-az-dark dark:text-dk-text font-bold text-xl md:text-2xl">
@@ -229,7 +217,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ── FLASH DEALS ── */}
       <section className="max-w-[1600px] mx-auto px-4 md:px-6 mt-10">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -255,7 +242,6 @@ function HomePage() {
               key={deal.name}
               className="bg-white dark:bg-dk-surface border border-az-border dark:border-dk-border rounded-xl overflow-hidden shadow-sm-warm dark:shadow-dark-md card-hover group cursor-pointer"
             >
-              {/* Product Image Placeholder */}
               <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-dk-card dark:to-dk-border h-44 flex items-center justify-center relative overflow-hidden">
                 <span className="text-6xl group-hover:scale-110 transition-transform duration-350">
                   🛍️
@@ -265,13 +251,11 @@ function HomePage() {
                 </div>
               </div>
 
-              {/* Info */}
               <div className="p-3">
                 <h3 className="text-az-dark dark:text-dk-text font-semibold text-sm line-clamp-1">
                   {deal.name}
                 </h3>
 
-                {/* Rating */}
                 <div className="flex items-center gap-1 mt-1">
                   <Star sx={{ fontSize: 13, color: "#FF9900" }} />
                   <span className="text-xs text-az-muted dark:text-dk-muted font-medium">
@@ -279,7 +263,6 @@ function HomePage() {
                   </span>
                 </div>
 
-                {/* Price */}
                 <div className="mt-1.5 flex items-baseline gap-2">
                   <span className="text-az-dark dark:text-dk-text font-black text-base">
                     {deal.price}
