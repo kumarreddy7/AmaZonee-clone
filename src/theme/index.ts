@@ -1,10 +1,5 @@
-// src/theme/index.ts
-// Two complete MUI themes — light and dark
-// Uses Amazon color palette from our Tailwind config
-
 import { createTheme } from "@mui/material/styles";
 
-// ─── Shared settings ───
 const shared = {
   typography: {
     fontFamily: '"Inter", system-ui, sans-serif',
@@ -15,7 +10,6 @@ const shared = {
     h5: { fontWeight: 600 },
     h6: { fontWeight: 600 },
     button: { fontWeight: 600, textTransform: "none" as const },
-    // textTransform: "none" → MUI buttons don't shout in UPPERCASE
   },
   shape: { borderRadius: 8 },
   components: {
@@ -42,19 +36,18 @@ const shared = {
   },
 };
 
-// ─── Light Theme ───
 export const lightTheme = createTheme({
   ...shared,
   palette: {
     mode: "light",
     primary: {
-      main: "#FF9900", // Amazon orange
+      main: "#FF9900",
       dark: "#E47911",
       light: "#FFB84D",
       contrastText: "#0F1111",
     },
     secondary: {
-      main: "#146EB4", // Amazon blue
+      main: "#146EB4",
       contrastText: "#FFFFFF",
     },
     background: {
@@ -71,7 +64,6 @@ export const lightTheme = createTheme({
   },
 });
 
-// ─── Dark Theme ───
 export const darkTheme = createTheme({
   ...shared,
   palette: {

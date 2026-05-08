@@ -1,4 +1,3 @@
-// Wraps every page in the app with a common layout (e.g. navbar, content, footer)
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
