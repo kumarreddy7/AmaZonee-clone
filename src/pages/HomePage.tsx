@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowForward, FlashOn, Star } from "@mui/icons-material";
+import TypingEffect from "../components/TypingEffect";
+import ParticleEffect from "../components/ParticleEffect";
 
 const CATEGORIES = [
   {
@@ -87,6 +89,7 @@ function HomePage() {
   return (
     <div className="pb-12">
       <section className="relative overflow-hidden bg-gradient-to-br from-az-dark via-az-nav to-[#1a3a4a] dark:from-dk-bg dark:via-dk-surface dark:to-[#0d1f2d] min-h-[420px] md:min-h-[500px] flex items-center">
+        <ParticleEffect />
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-20 -right-20 w-72 h-72 md:w-96 md:h-96 rounded-full bg-az-orange/10 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-blue-500/10 blur-3xl" />
@@ -106,9 +109,11 @@ function HomePage() {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
                   Everything
                   <br />
-                  <span className="text-gradient">You Need,</span>
+                  <span className="text-gradient">
+                    <TypingEffect text="Kumar Reddy" />
+                  </span>
                   <br />
-                  Delivered.
+                  Needs, Delivered.
                 </h1>
               </div>
 
